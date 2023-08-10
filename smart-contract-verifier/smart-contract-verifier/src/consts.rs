@@ -4,8 +4,11 @@ pub const DEFAULT_SOLIDITY_COMPILER_LIST: &str =
 #[cfg(target_os = "macos")]
 pub const DEFAULT_SOLIDITY_COMPILER_LIST: &str =
     "https://solc-bin.ethereum.org/macosx-amd64/list.json";
+#[cfg(target_os = "windows")]
+pub const DEFAULT_SOLIDITY_COMPILER_LIST: &str =
+    "https://solc-bin.ethereum.org/windows-amd64/list.json";
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "windows"))]
 pub const DEFAULT_VYPER_COMPILER_LIST: &str =
     "https://raw.githubusercontent.com/blockscout/solc-bin/main/vyper.list.json";
 #[cfg(target_os = "macos")]
