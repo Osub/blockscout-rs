@@ -52,6 +52,17 @@ fn create_executable(path: &Path) -> Result<File, std::io::Error> {
         .open(path)
 }
 
+#[cfg(target_family = "windows")]
+fn create_executable(path: &Path) -> Result<File, std::io::Error> {
+    use std::os::windows::fs::OpenOptionsExt;
+    OpenOptions::new()
+        .create(true)
+        .write(true)
+        .truncate(true)
+        .access_mode(0o777)
+        .open(path)
+}
+
 #[instrument(skip(bytes), level = "debug")]
 pub fn validate_checksum(bytes: &Bytes, expected: H256) -> Result<(), Mismatch<H256>> {
     let found = Sha256::digest(bytes);
